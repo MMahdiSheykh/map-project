@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\Register;
 use App\Livewire\Admin\Page\Confirm;
-use App\Livewire\Home;
 use App\Livewire\User\Page\Create;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +27,5 @@ Route::prefix('event')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('map', Confirm::class)->name('admin.map');
 });
+
+Route::resource('register',Register::class);
