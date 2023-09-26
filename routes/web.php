@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Home::class);
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::prefix('event')->group(function () {
     Route::get('create', Create::class)->name('event.create');
