@@ -30,20 +30,14 @@
             var marker = L.marker([e.lat, e.lng], {icon: eventsIcon}).addTo(map);
         })
 
-        // const successCallback = (position) => {
-        //     console.log(position);
-        // };
-        //
-        // const errorCallback = (error) => {
-        //     console.log(error);
-        // };
-        //
-        // navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        // setting the map position with the user location
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                map.setView([position.coords.latitude, position.coords.longitude], 13)
+            }, (error) => {
+                console.error(error);
+            }
+        );
 
-        var latLong;
-        $.getJSON("http://ipinfo.io", function(ipinfo){
-            console.log("Found location ["+ipinfo.loc+"] by ipinfo.io");
-            latLong = ipinfo.loc.split(",");
-        });
     </script>
 </div>
