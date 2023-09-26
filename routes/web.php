@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\Page\Confirm;
+use App\Livewire\Home;
 use App\Livewire\User\Page\Create;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', Home::class);
 
 Route::prefix('event')->group(function () {
     Route::get('create', Create::class)->name('event.create');
