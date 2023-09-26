@@ -71,7 +71,13 @@
     <button id="btn-register" type="button" class="btn btn-secondary">Register</button>
 </div>
 
+
+<div id="map-theme" class="mt-5">
+    <button id="toggle" type="button" class="btn btn-secondary">toggle map theme</button>
+</div>
+
 <script>
+    // login and register buttons
     L.Control.Custom = L.Control.extend({
         onAdd: function() {
             return L.DomUtil.get('auth-buttons');
@@ -90,6 +96,32 @@
 
     document.getElementById('btn-register').addEventListener('click', function() {
         window.location.href = '/register';
+    });
+
+    // toggle map theme
+    L.Control.Custom = L.Control.extend({
+        onAdd: function() {
+            return L.DomUtil.get('map-theme');
+        }
+    });
+
+    L.control.custom = function(opts) {
+        return new L.Control.Custom(opts);
+    }
+
+    L.control.custom({ position: 'bottomright' }).addTo(map);
+
+    let isDark = false;
+    map.setMapType("neshan");
+
+    document.getElementById('toggle').addEventListener('click', function() {
+        if (isDark) {
+            map.setMapType("neshan");
+            isDark = false;
+        } else {
+            map.setMapType("standard-night");
+            isDark = true;
+        }
     });
 
 </script>
