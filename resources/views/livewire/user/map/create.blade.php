@@ -95,4 +95,38 @@
             });
         });
     </script>
+
+    {{-- add toggle map theme feature --}}
+    <div id="map-theme" class="mt-5">
+        <button id="toggle" type="button" class="btn btn-secondary">toggle map theme</button>
+    </div>
+
+    <script>
+        L.Control.Custom = L.Control.extend({
+            onAdd: function() {
+                return L.DomUtil.get('map-theme');
+            }
+        });
+
+        L.control.custom = function(opts) {
+            return new L.Control.Custom(opts);
+        }
+
+        L.control.custom({ position: 'bottomright' }).addTo(map);
+
+        let isDark = false;
+        map.setMapType("neshan");
+
+        document.getElementById('toggle').addEventListener('click', function(event) {
+            event.stopPropagation();
+            if (isDark) {
+                map.setMapType("neshan");
+                isDark = false;
+            } else {
+                map.setMapType("standard-night");
+                isDark = true;
+            }
+        });
+
+    </script>
 </div>
