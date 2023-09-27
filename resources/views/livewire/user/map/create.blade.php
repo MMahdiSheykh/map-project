@@ -35,12 +35,11 @@
 
         // show all events with their explanations
         const allEvents = @json($events);
-        {{--const userId = {{ auth()->user()->id }};--}}
+        const userId = {{ auth()->user()->id }};
 
         allEvents.forEach(function (e) {
-            // var icon = e.user_id === userId ? iconForCurrentUserEvents : iconForOtherUsersEvents;
-            // var marker = L.marker([e.lat, e.lng], {icon: icon}).addTo(map);
-            var marker = L.marker([e.lat, e.lng], {icon: iconForOtherUsersEvents}).addTo(map);
+            var icon = e.user_id === userId ? iconForCurrentUserEvents : iconForOtherUsersEvents;
+            var marker = L.marker([e.lat, e.lng], {icon: icon}).addTo(map);
 
             if (e.user_id === userId) {
                 marker.bindPopup("نام: " + e.name + "<br><br>توضیحات: " + e.description + `<button wire:click="confirmDelete(${e.id})" class="btn btn-sm btn-dark mt-4 ml-2">حذف رویداد</button>`);
@@ -48,21 +47,43 @@
                 marker.bindPopup("نام: " + e.name + "<br><br>توضیحات: " + e.description);
             }
         })
+    </script>
 
-        // get lat and lng of new event
-        var popup = L.popup();
+    <div> {{-- select the location for creating the new event and delete it when user closed the popup --}}
+        <div id="new-event-popup">
+            <script>
 
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("رویداد شما در این نقطه ایجاد می شود")
-                .openOn(map);
+                // get lat and lng of new event
+                var popup = L.popup();
 
-        @this.dispatch('setLatlng', {latlng: e.latlng});
-        }
+                function onMapClick(e) {
+                    popup
+                        .setLatLng(e.latlng)
+                        .setContent("رویداد شما در این نقطه ایجاد می شود")
+                        .openOn(map);
 
-        map.on('click', onMapClick);
+                    dispatchEvent(new Event('close-popup'));
 
+                    @this.dispatch('setLatlng', {latlng: e.latlng});
+                }
+
+                map.on('click', onMapClick);
+            </script>
+        </div>
+
+        <script>
+
+            addEventListener('close-popup', function () {
+                var link = document.querySelector('.leaflet-popup-close-button');
+
+                link.addEventListener('click', function () {
+                    @this.dispatch('setLatlng', {latlng: null});
+                });
+            })
+        </script>
+    </div>
+
+    <script>
         // confirm delete alert
         document.addEventListener('livewire:initialized', () => {
             @this.on('confirm-delete', (event) => {
