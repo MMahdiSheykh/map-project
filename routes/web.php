@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\Register;
 use App\Livewire\Admin\Page\Confirm;
 use App\Livewire\User\Page\Create;
+use App\Livewire\User\Page\Navigation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::prefix('event')->group(function () {
     Route::get('create', Create::class)->name('event.create');
 });
+
+Route::get('navigation', Navigation::class);
 
 Route::prefix('admin')->group(function () {
     Route::get('map', Confirm::class)->name('admin.map');
