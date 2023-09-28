@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User\Event;
+namespace App\Livewire\User\Sidebar;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class Navigation extends Component
 {
     public function render()
     {
-        return view('livewire.user.event.navigation');
+        return view('livewire.user.sidebar.navigation');
     }
 }

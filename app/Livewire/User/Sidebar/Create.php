@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\User\Event;
+namespace App\Livewire\User\Sidebar;
 
 use App\Models\Event;
 use Livewire\Attributes\On;
@@ -23,7 +23,7 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.user.event.create');
+        return view('livewire.user.sidebar.create');
     }
 
     public function createEvent()

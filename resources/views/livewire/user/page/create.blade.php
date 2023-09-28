@@ -1,7 +1,7 @@
 <div>
 
     <x-slot name="sidebar">
-        <livewire:user.event.create />
+        <livewire:user.sidebar.create />
     </x-slot>
 
     <livewire:user.map.create />
